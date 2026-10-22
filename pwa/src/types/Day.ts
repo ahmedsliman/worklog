@@ -9,7 +9,7 @@ export class Day implements Item {
   constructor(
     _id?: string,
     public year?: Year,
-    public date?: Date,
+    public date?: string,
     public publicHoliday?: PublicHoliday,
     public off?: Off,
     public hours?: number,

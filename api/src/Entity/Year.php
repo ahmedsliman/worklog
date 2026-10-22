@@ -12,23 +12,33 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Enum\Region;
 use App\Repository\YearRepository;
+use App\State\YearPersistProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     operations: [
-        new GetCollection(),
+        new GetCollection(
+            paginationEnabled: false,
+            normalizationContext: ['groups' => ['read'], 'ignored_attributes' => ['days']],
+        ),
         new Get(),
-        new Post(),
+        new Post(processor: YearPersistProcessor::class),
         new Put(),
         new Delete(),
     ],
     normalizationContext: ['groups' => ['read']],
 )]
 #[ORM\Entity(repositoryClass: YearRepository::class)]
+#[UniqueEntity(
+    fields: ['year', 'region'],
+    message: 'This region already has a timesheet for that year.',
+    errorPath: 'year',
+)]
 class Year
 {
     use IdTrait;

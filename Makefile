@@ -6,7 +6,7 @@ lint:
 	cd pwa && pnpm run type-check
 
 phpstan:
-	php -d memory_limit=-1 api/vendor/bin/phpstan analyse ./api/src -c ./api/phpstan.neon
+	docker compose exec php php -d memory_limit=-1 vendor/bin/phpstan analyse src -c phpstan.neon
 
 test:
 	docker compose exec php composer test

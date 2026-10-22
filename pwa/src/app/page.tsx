@@ -1,15 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { FC } from 'react';
-import Markdown from 'react-markdown';
 
-const markdown = fs.readFileSync(
-  path.join(process.cwd(), '/../README.md'),
-  'utf8',
-);
+import { YearList } from '@/components/YearList';
 
-const Page: FC = () => {
-  return <Markdown className="prose prose-sm">{markdown}</Markdown>;
-};
+const Page: FC = () => <YearList />;
 
 export default Page;

@@ -3,6 +3,8 @@ import '@/styles/globals.css';
 import { Metadata } from 'next';
 import { FC, ReactNode } from 'react';
 
+import { QueryProvider } from '@/components/QueryProvider';
+
 type Props = {
   children: ReactNode;
 };
@@ -17,7 +19,11 @@ const RootLayout: FC<Props> = ({ children }) => {
   return (
     <html className="h-full bg-white" lang="en">
       <body className="h-full">
-        <main className="mx-auto mt-8 max-w-7xl">{children}</main>
+        <QueryProvider>
+          <main className="mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
+            {children}
+          </main>
+        </QueryProvider>
       </body>
     </html>
   );

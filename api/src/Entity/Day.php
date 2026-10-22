@@ -5,24 +5,36 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use App\Dto\DayBulkUpdate;
 use App\Enum\Off;
 use App\Enum\PublicHoliday;
 use App\Repository\DayRepository;
-use App\State\DayPersistProcessor;
+use App\State\DayBulkUpdateProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     operations: [
         new Put(),
+        new Post(
+            uriTemplate: '/days/bulk',
+            status: 204,
+            input: DayBulkUpdate::class,
+            output: false,
+            processor: DayBulkUpdateProcessor::class,
+        ),
     ],
 )]
 #[ORM\Entity(repositoryClass: DayRepository::class)]
 class Day
 {
     use IdTrait;
+
+    public const MAX_HOURS = 10;
 
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     #[ORM\ManyToOne(inversedBy: 'days')]
@@ -36,6 +48,7 @@ class Day
     #[ORM\Column(nullable: true, enumType: PublicHoliday::class)]
     private ?PublicHoliday $publicHoliday = null;
 
+    #[Assert\Range(min: 0, max: self::MAX_HOURS)]
     #[Groups(['read'])]
     #[ORM\Column(nullable: true)]
     private ?int $hours = null;
