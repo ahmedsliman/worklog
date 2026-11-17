@@ -11,6 +11,8 @@ type Props = {
 
 export const metadata: Metadata = {
   title: 'Worklog',
+  description:
+    'Track working hours and time off with annual timesheets and regional public holidays.',
 };
 
 // Since we have a `not-found.tsx` page on the root, a layout file
