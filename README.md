@@ -2,6 +2,8 @@
 
 A timesheet app for tracking working hours and time off. Supports bulk editing and public holidays by German region.
 
+[Try the demo](https://worklog-demo.ahmedsliman.workers.dev) — entries are saved in your browser.
+
 Built with Next.js, TypeScript, Tailwind CSS, Symfony, API Platform, and PostgreSQL.
 
 ## Run locally
@@ -17,6 +19,8 @@ Open [localhost](https://localhost). [API docs](https://localhost/docs) are avai
 
 Run tests with `make test` while the containers are running.
 
-Local demo only; no user accounts or access controls.
+The hosted demo runs entirely in the browser. The local app uses the PHP API and PostgreSQL; neither version has user accounts.
+
+To build the hosted demo, install the `pwa/` dependencies, then run `npm ci && npm run build` in `demo/`. Deploy with `npm run deploy`.
 
 [MIT license](LICENSE).

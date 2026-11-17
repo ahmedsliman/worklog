@@ -1,0 +1,19 @@
+{
+  "extends": "../pwa/tsconfig.json",
+  "compilerOptions": {
+    "target": "es2022",
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "incremental": false,
+    "plugins": [],
+    "paths": {
+      "@/lib/dataAccess": ["./dataAccess.ts"],
+      "@/*": ["../pwa/src/*"],
+      "react": ["../pwa/node_modules/@types/react"],
+      "react/*": ["../pwa/node_modules/@types/react/*"],
+      "react-dom/*": ["../pwa/node_modules/@types/react-dom/*"]
+    }
+  },
+  "include": ["main.tsx", "Link.tsx", "dataAccess.ts"],
+  "exclude": ["node_modules", "dist"]
+}
